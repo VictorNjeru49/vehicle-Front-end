@@ -15,10 +15,10 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({requiredRole, children})
  const user = useSelector((state: RootState) => state.auth.user);
 
  if(!user){
-        return <Navigate to="/auth" />;
+        return <Navigate to="/register" />;
  }
     if(requiredRole && user.role !== requiredRole){
-            return <Navigate to="/" />;
+            return <Navigate to="/login" />;
     }
     return children ? <>{children}</>: <Outlet />;
 }

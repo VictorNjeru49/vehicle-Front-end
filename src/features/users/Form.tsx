@@ -12,7 +12,7 @@ interface FormValues extends TUser {
 function Form() {
     const { register, handleSubmit, formState: { errors } } = useForm<FormValues>();
 
-    const [registerUser, { isLoading, isError, error }] = RegisterApi.useRegisterUserMutation();
+    const [registerUser, { isLoading, isError }] = RegisterApi.useRegisterUserMutation();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [name, setFullName] = useState('');
@@ -165,7 +165,7 @@ function Form() {
                       Already have an account? <a href="#" className="font-medium text-primary-600 hover:underline dark:text-primary-500">Login here</a>
                   </p></Link>
 
-                    {isError && <p className="text-red-500 mt-4">Error: {error?.data?.message || "Unknown error"}</p>}
+                    {isError && <p className="text-red-500 mt-4">Error:</p>}
                 </form>
 
 

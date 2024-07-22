@@ -28,6 +28,7 @@ import SignOutForm from './pages/signout'
 import Review from './pages/Review'
 import VehicleSlice from './features/Vehiclespec/vehicleSlice'
 import VehicleDetails from './features/Vehiclespec/VehicleDetails'
+import ProtectedRoute from './components/authProtected/Protectedroute'
 
 
 
@@ -77,7 +78,7 @@ function App() {
     },  
     {
       path: 'userprofile',
-      element:<ProfileSectioning/>,
+      element:<ProtectedRoute><ProfileSectioning/></ProtectedRoute>,
       errorElement:<Error/>,  // custom error page for 404 not found
     },
     {
@@ -92,13 +93,13 @@ function App() {
     },
     {
       path: 'bookform',
-      element:<FormBook/>,
+      element:<ProtectedRoute><FormBook/></ProtectedRoute>,
       errorElement:<Error/>,  // custom error page for 404 not found
        // custom error title for 404 not found
     },              
     {
       path: 'dashboard',
-      element:<Dashboard/>,
+      element:<ProtectedRoute><Dashboard/></ProtectedRoute>,
       errorElement:<Error/>,  // custom error page
 
       children:[
@@ -122,7 +123,7 @@ function App() {
     },
   {
     path: 'Dashboard-Profile',
-    element:<SettingsPage/>,
+    element:<ProtectedRoute><SettingsPage/></ProtectedRoute>,
     errorElement:<Error/>,  // custom error page for 404 not found
       
     children:[

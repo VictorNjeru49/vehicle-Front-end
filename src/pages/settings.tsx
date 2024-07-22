@@ -29,7 +29,7 @@ const SettingsPage = ((user:TUser) => {
               <div className="hidden lg:ml-6 lg:block lg:space-x-4">
                 <div className="flex">
                   <a href="#" className="bg-black bg-opacity-25 rounded-md py-2 px-3 text-sm font-medium text-white hover:bg-sky-800">Dashboard</a>
-                  <Link to="/blogs"><a href="#" className="hover:bg-sky-800 rounded-md py-2 px-3 text-sm font-medium text-white">Vehicle</a></Link>
+                  <Link to="/vehicle/:id"><a href="#" className="hover:bg-sky-800 rounded-md py-2 px-3 text-sm font-medium text-white">Vehicle</a></Link>
                   <a href="#" className="hover:bg-sky-800 rounded-md py-2 px-3 text-sm font-medium text-white">Applicants</a>
                   <a href="#" className="hover:bg-sky-800 rounded-md py-2 px-3 text-sm font-medium text-white">Company</a>
                 </div>

@@ -1,33 +1,13 @@
-import { AlignJustify, Bell, CircleUserRound, LogIn, UserPlus, Search, Moon, Sun, X } from "lucide-react";
-import { useState, useEffect } from "react";
+import { AlignJustify, Bell, LogIn, UserPlus, Search, Moon, Sun, X, CircleUserIcon } from "lucide-react";
+import { useState } from "react";
 import { Link } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
-import { RootState } from "../app/store";
-import { login, logout } from "../components/authProtected/auth";
-import { AppDispatch } from "../app/store";
 
 function Navbar() {
     const [isDarkMode, setIsDarkMode] = useState(false);
-    const isLoggedIn = useSelector((state: RootState) => state.auth.isAuthenticated);
-    const dispatch = useDispatch<AppDispatch>();
 
     const toggleDarkMode = () => {
         setIsDarkMode(!isDarkMode);
     };
-
-    const handleLogout = () => {
-        dispatch(logout());
-    };
-
-    useEffect(() => {
-        // Check for user role in localStorage to set initial login state
-        const userRole = localStorage.getItem('userRole');
-        if (userRole) {
-            // Assuming you have an action to set the login state
-            dispatch(login({ user: { role: userRole }, token: localStorage.getItem('authToken') }));
-        }
-    }, [dispatch]);
-
     return (
         <>
             <div className={`navbar w-full border-b-4 ${isDarkMode ? "bg-slate-900 text-white" : "bg-slate-500"}`}>
@@ -48,7 +28,7 @@ function Navbar() {
                                 <li><Link to="/dashboard">Dashboard</Link></li>
                                 <li><Link to="/contact">Contact</Link></li>
                                 <li><Link to="/register">Register</Link></li>
-                                <li><Link to="/blogs">Vehicle blog</Link></li>
+                                <li><Link to="/vehicles">Vehicle blog</Link></li>
                                 <li className="hidden"><Link to="/login">Login</Link></li>
                                 <li className="hidden"><Link to="/settings">Settings</Link></li>
                             </ul>
@@ -75,10 +55,20 @@ function Navbar() {
                                 <Sun className="h-5 w-5" />
                             )}
                         </button>
+</div>
 
-                        {isLoggedIn ? (
-                          <>
-                          <div className="relative group">
+                        <div tabIndex={0} role="button" className="btn btn-ghost btn-circle dropdown  max-sm:flex">
+                    <CircleUserIcon className="dropdown dropdown-title h-7 w-7 fill-current cursor-pointer" />
+                    <ul tabIndex={0}
+                        className="menu menu-sm dropdown-content text-black bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow">
+                        <li><Link to="/userprofile">Profile</Link></li>
+                        <li><Link to="/account">Account</Link></li>
+                        <li><Link to="/dashboard-profile">Dashboard</Link></li>
+                        <li><Link to="/logout">Logout</Link></li>
+                    </ul>
+                </div>
+
+                <div className="relative group">
                               <Link to="/login" className="btn btn-ghost btn-circle">
                                   <LogIn className="h-5 w-5" />
                               </Link>
@@ -95,41 +85,22 @@ function Navbar() {
                                   Register
                               </span>
                           </div>
-                      </>
-                            
-                        ) : (
-                          <div className="dropdown dropdown-end">
-                          <label tabIndex={0}>
-                              <div className="w-10 rounded-full">
-                                  <CircleUserRound />
-                              </div>
-                          </label>
-                          <ul
-                              tabIndex={0}
-                              className="mt-3 p-2 shadow menu menu-compact dropdown-content bg-base-100 rounded-box w-52 z-10">
-                              <li><Link to="/userprofile">Profile</Link></li>
-                              <li><Link to="/account">Account</Link></li>
-                              <li><Link to="/dashboard-profile">Dashboard</Link></li>
-                              <li><button onClick={handleLogout}>Logout</button></li>
-                          </ul>
-                      </div> 
-                        )}
-                    </div>
-                </div>
 
                 <div tabIndex={0} role="button" className="btn btn-ghost btn-circle dropdown hidden max-sm:flex">
                     <AlignJustify className="dropdown dropdown-title h-7 w-7 fill-current cursor-pointer" />
                     <ul tabIndex={0}
                         className="menu menu-sm dropdown-content text-black bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow">
                         <li><Link to="/userprofile">Profile</Link></li>
+                        <li><Link to="/login"><LogIn className="h-5 w-5" /></Link></li>
+                        <li><Link to="/register"><UserPlus className="h-5 w-5" /></Link></li>
                         <li><Link to="/account">Account</Link></li>
                         <li><Link to="/dashboard-profile">Dashboard</Link></li>
                         <li><Link to="/logout">Logout</Link></li>
                     </ul>
                 </div>
+ </div>
             </div>
-        </>
-    );
-}
+            </>
+    )}
 
 export default Navbar;

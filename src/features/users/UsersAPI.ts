@@ -1,5 +1,5 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import {BookingState, LoginRequest, PaymentForm, RegisterRequest, TAvailabilityVehicle, TSearch, TUser, TVehicle, TVehicleSpec} from "../../types/alltypes";
+import {BookingState, LoginRequest, PaymentForm, RegisterRequest, TAvailabilityVehicle, TLocations, TReveiws, TSearch, TUser, TVehicle, TVehicleSpec} from "../../types/alltypes";
 
 export const UserApi = createApi({
   reducerPath: "UserApi",
@@ -422,28 +422,28 @@ export const ReviewsApi = createApi({
   tagTypes: ["ReviewService"],
   endpoints:(builder) => ({
     
-    GetReviews: builder.query({
-      query: ()=>'review',
+    GetReviews: builder.query<TReveiws[], void>({
+      query: () =>"review",
       providesTags: ['ReviewService']
     }),
 
-GetReviewsById: builder.query({
+GetReviewsById: builder.query<TReveiws, number>({
     query: (id) => ({
       url:`review/${id}`,
     providesTags: ["getUserProfileByIdTag"],
   }),
 }),
-CreateReviews: builder.mutation({
-  query: (newUser) => ({
+CreateReviews: builder.mutation<TReveiws, Partial<TReveiws>>({
+  query: (newReview) => ({
     url: "review",
     method: "POST",
-    body: newUser,
+    body: newReview,
     providesTags: ["createUser"],
   }),
   invalidatesTags: ["ReviewService"],
 }),
 
-UpdateReviews: builder.mutation<TUser, Partial<TUser>>({
+UpdateReviews: builder.mutation<TReveiws, Partial<TReveiws>>({
   query: ({ id, ...rest }) => ({
     url: `review/${id}`,
     method: "PUT",
@@ -466,7 +466,64 @@ DeleteReviews: builder.mutation<{ success: boolean; userId: number }, number>(
 ),
 })})
 
+export const LocationApi = createApi({
+  reducerPath:'LocationApi',
+  baseQuery: fetchBaseQuery({
+    baseUrl: 'http://localhost:8000'
+  }),
+  tagTypes: ["getLocations"],
+  endpoints:(builder) => ({
+      // get Locations profile
 
+      GetLocations: builder.query<TLocations[], void>({
+          query: () => 'locations',
+          providesTags:['getLocations']
+          
+              // ({url: '/Locations',}),
+          // transformResponse: (response) => response.data,
+      }),
+
+
+          // get Locations profile by ID
+          GetLocationsById: builder.query<TLocations, number>({
+              query: (id) =>
+                ({url: `locations/${id}`,
+              providesTags: ["getLocationsById"]})
+            }),
+
+
+      // update Locations profile
+      UpdateLocations: builder.mutation<TLocations, Partial<TLocations>>({
+          query: ({id, ...rest}) => ({
+              url:`locations/${id}`,
+              method: "PUT",
+              body: rest,
+              providesTags: ['updatelocations'],
+          }),
+          invalidatesTags: ['getLocations'],
+      }),
+
+      // delete Locations profile
+      DeleteLocations: builder.mutation<number, number>({
+          query: (id) => ({
+              url: `locations/${id}`,
+              method: 'DELETE',
+          }),
+          invalidatesTags: ['getLocations'],
+      }),
+      
+      // create Locations profile
+      CreateLocations: builder.mutation<TLocations, Partial<TLocations>>({
+          query: (newusers) => ({
+              url: 'locations',
+              method: 'POST',
+              body: newusers,
+              provideTags: ['Createlocations']
+          }),
+          invalidatesTags: ['getLocations'],
+      })
+  }),
+})
 
 
 

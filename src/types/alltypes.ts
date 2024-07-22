@@ -1,4 +1,3 @@
-
 export interface TUser{
     id:number;
     fullname: string,
@@ -33,6 +32,7 @@ export interface TVehicle{
     rental_rate: string;
     availability: string;
     vehicleId: number;
+    specifications: TVehicleSpec
 }
 
 export interface TVehicleSpec {
@@ -81,10 +81,17 @@ export interface LoginFormValues {
     password: string;
 }
 
+export interface TLocations{
+    id: number;
+    locationName: string;
+    address: string,
+    contactNumber:string;
+}
 export interface PaymentForm{
     id: number;
     bookingId:number;
     Amount: string;
+    checkoutUrl:string;
     paymentStatus: string;
     paymentMethod:string;
     transactionId:string;
@@ -127,7 +134,17 @@ export interface RegisterVehicleFormValues {
   };
 
   export type BookingState = {
-    id: string
+    id: number;
+    bookingDate: string; 
+    returnDate: string; 
+    booking_status: string;
+    totalAmount: string;
+    locationId: number;
+    vehicleId: number;
+    userId: number;
+    location: TLocations;
+    user:TUser;
+    vehicle: TVehicle
   }
   export interface TypeUser {
     id: number;
@@ -151,3 +168,13 @@ export interface AuthState {
     token: string | null;
 }
 
+export interface TReveiws{
+    id: number;
+    userId:number;
+    bookingId:number;
+    rating: number;
+    comment:string;
+    user: {
+        link: string;
+    };
+}

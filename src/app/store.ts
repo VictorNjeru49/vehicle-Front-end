@@ -1,7 +1,7 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
 import storage from 'redux-persist/lib/storage';
 import { persistStore, persistReducer } from 'redux-persist';
-import { AvailableVehicleApi, LoginApi, PaymentApi, RegisterApi, UserApi,VehicleApi, VehicleSpecificationApi } from '../features/users/UsersAPI';
+import { AvailableVehicleApi, LocationApi, LoginApi, PaymentApi, RegisterApi, ReviewsApi, UserApi,VehicleApi, VehicleSpecificationApi } from '../features/users/UsersAPI';
 import authReducer from '../components/authProtected/auth';
 
 // CREATE PERSIST CONFIG
@@ -20,6 +20,8 @@ const rootReducer = combineReducers({
     [RegisterApi.reducerPath]: RegisterApi.reducer,
     [AvailableVehicleApi.reducerPath]: AvailableVehicleApi.reducer,
     [VehicleSpecificationApi.reducerPath]: VehicleSpecificationApi.reducer,
+    [ReviewsApi.reducerPath]:ReviewsApi.reducer,
+    [LocationApi.reducerPath]: LocationApi.reducer
 });
 
 // Create a persisted reducer
@@ -39,6 +41,8 @@ export const store = configureStore({
             .concat(RegisterApi.middleware)
             .concat(AvailableVehicleApi.middleware)
             .concat(VehicleSpecificationApi.middleware)
+            .concat(ReviewsApi.middleware)
+            .concat(LocationApi.middleware)
 });
 
 // Create a persistent store

@@ -1,21 +1,22 @@
 import { useNavigate } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '../app/store';
-import { store } from '../app/store'; // Ensure this import points to your store configuration
+import { logout } from '../components/authProtected/auth';
+
 
 const SignOutForm = () => {
     const isLoggedIn = useSelector((state: RootState) => state.auth.isAuthenticated);
     const navigate = useNavigate();
+    const dispatch = useDispatch();
 
     const handleLogOut = () => {
-        // Clear the local storage & reset the state
-        store.dispatch({ type: 'persist/PURGE', result: () => null, key: 'admin-auth' });
-        store.getState().auth.token = null;
-        navigate('/'); // Redirect to home page after logout
+        // Dispatch the clearAuth action to reset the state
+        dispatch(logout());
+        navigate('/login'); // Redirect to login page after logout
     };
 
     if (!isLoggedIn) {
-        navigate('/login'); // Redirect to login page if the user is not logged in
+        navigate('/'); // Redirect to login page if the user is not logged in
         return null;
     }
 
