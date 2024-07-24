@@ -1,7 +1,6 @@
 import { useForm } from "react-hook-form";
 import { Toaster, toast } from "sonner";
 import { Link, useNavigate } from "react-router-dom";
-import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { login } from "../components/authProtected/auth";
 import { AppDispatch } from "../app/store";
@@ -16,26 +15,25 @@ const LoginForm = () => {
     const { register, handleSubmit, formState: { errors } } = useForm<LoginFormValues>();
     const [loginUser, { isLoading: isUserLoading }] = LoginApi.useLoginUserMutation();
     const navigate = useNavigate();
-    const [isAdmin, setIsAdmin] = useState(false);
     const dispatch = useDispatch<AppDispatch>();
 
     const onSubmit = async (data: LoginFormValues) => {
         try {
             const response = await loginUser({ email: data.email, password: data.password }).unwrap();
+            console.log(response)
             const { user, token } = response;
             localStorage.setItem('userRole', user.role);
             localStorage.setItem('authToken', token);
-
-            if (user.role) {
+            if (user.role, token) {
                 dispatch(login({ user, token }));
                 toast.success("Login Successful");
-                navigate(user.role === 'admin' ? '/dashboard' : '/Dashboard-Profile');
-            } else {
-                toast.error("Invalid role");
+                navigate(user.role === 'admin'? '/dashboard' : '/Dashboard-Profile');
             }
         } catch (error) {
             toast.error("Invalid email or password");
+            
         }
+        
     };
 
     return (
@@ -45,7 +43,7 @@ const LoginForm = () => {
                 <div className="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
                     <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
                         <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
-                            {isAdmin ? "Admin Login" : "User Login"}
+                            Login
                         </h1>
                         <form onSubmit={handleSubmit(onSubmit)} className="space-y-4 p-4 md:space-y-6">
                             <div>
@@ -84,10 +82,10 @@ const LoginForm = () => {
                                     id="adminCheck"
                                     type="checkbox"
                                     className="mr-2 w-4 h-4 text-primary-600 bg-gray-100 rounded border-gray-300 focus:ring-primary-500 dark:focus:ring-primary-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
-                                    checked={isAdmin}
-                                    onChange={(e) => setIsAdmin(e.target.checked)}
+                                    onChange={(e) => console.log("Admin Check:", e.target.checked)}
                                 />
                                 <label htmlFor="adminCheck" className="label">Login as Admin</label>
+                                
                             </div>
 
                             <button type="submit" className="btn btn-primary w-full" disabled={isUserLoading}>

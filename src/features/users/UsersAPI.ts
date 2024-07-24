@@ -1,10 +1,11 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import {BookingState, LoginRequest, PaymentForm, RegisterRequest, TAvailabilityVehicle, TLocations, TReveiws, TSearch, TUser, TVehicle, TVehicleSpec} from "../../types/alltypes";
+import {BookingState, LoginRequest, PaymentForm, RegisterRequest, TAvailabilityVehicle, TFleet, Tickets, TLocations, TReveiws, TSearch, TUser, TVehicle, TVehicleSpec} from "../../types/alltypes";
+import { RootState } from "../../app/store";
 
 export const UserApi = createApi({
   reducerPath: "UserApi",
   baseQuery: fetchBaseQuery({
-    baseUrl: "http://localhost:8000",
+    baseUrl: "https://vehicle-rental-backend-qp3a.onrender.com",
     prepareHeaders: (headers)=>{
       const token = localStorage.getItem('authToken');
       if(token){
@@ -81,11 +82,11 @@ export const UserApi = createApi({
 
 export const LoginApi = createApi({
   reducerPath: 'loginApi',
-  baseQuery: fetchBaseQuery({ baseUrl: 'http://localhost:8000' }),
+  baseQuery: fetchBaseQuery({ baseUrl: 'https://vehicle-rental-backend-qp3a.onrender.com' }),
   endpoints: (builder) => ({
       loginUser: builder.mutation<LoginRequest, { email: string; password: string }>({
           query: (credentials) => ({
-              url: '/login',
+              url: 'login',
               method: 'POST',
               body: credentials,
           }),
@@ -95,7 +96,7 @@ export const LoginApi = createApi({
 
 export const RegisterApi = createApi({
     reducerPath: 'RegisterApi',
-    baseQuery: fetchBaseQuery({ baseUrl: 'http://localhost:8000' }),
+    baseQuery: fetchBaseQuery({ baseUrl: 'https://vehicle-rental-backend-qp3a.onrender.com' }),
     endpoints: (builder) => ({
         registerUser: builder.mutation<RegisterRequest, { email: string; password: string; }>({
             query: (credentials) => ({
@@ -117,14 +118,15 @@ export const RegisterApi = createApi({
 export const VehicleApi = createApi({
   reducerPath: 'VehicleApi',
   baseQuery: fetchBaseQuery({
-    baseUrl: "http://localhost:8000"
+    baseUrl: "https://vehicle-rental-backend-qp3a.onrender.com"
   }),
   tagTypes: ["getVehicle"],
 
   endpoints: (builder) => ({
+
     GetVehicle: builder.query<TVehicle[], void>({
-      query: () => 'vehicles',
-      providesTags: ['getVehicle'],
+      query: () => "vehicles",
+      providesTags: ["getVehicle"],
     }),
       GetVehicleById: builder.query<TVehicle, number>({
         query: (id) => ({
@@ -133,7 +135,25 @@ export const VehicleApi = createApi({
       }),
   
       }),
+      createVehicle: builder.mutation<TVehicle, Partial<TVehicle>>({
+        query: (newVehicle) => ({
+          url: "vehicles",
+          method: "POST",
+          body: newVehicle,
+        }),
+        invalidatesTags: ["getVehicle"],
+      }),
+  
+      // Create Vehicle Specification
+      createVehicleSpecification: builder.mutation<TVehicleSpec, Partial<TVehicleSpec>>({
+        query: (newSpec) => ({
+          url: "vehicleSpec",
+          method: "POST",
+          body: newSpec,
+        }),
+        invalidatesTags: ["getVehicle"],
 
+      }),
 
     CreateVehicle: builder.mutation<TVehicle, Partial<TVehicle>>({
       query: (newVehicle) => ({
@@ -172,7 +192,7 @@ export const VehicleApi = createApi({
 export const PaymentApi = createApi({
   reducerPath:'PaymentApi',
   baseQuery: fetchBaseQuery({
-    baseUrl: 'http://localhost:8000'
+    baseUrl: 'https://vehicle-rental-backend-qp3a.onrender.com'
   }),
   tagTypes: ["getPayments"],
   endpoints:(builder) => ({
@@ -231,7 +251,7 @@ export const PaymentApi = createApi({
 export const AvailableVehicleApi = createApi({
   reducerPath: "AvailableVehicleApi",
   baseQuery: fetchBaseQuery({
-    baseUrl: "http://localhost:8000",
+    baseUrl: "https://vehicle-rental-backend-qp3a.onrender.com",
   }),
   tagTypes: ["available Vehicle"],
 
@@ -281,7 +301,7 @@ export const AvailableVehicleApi = createApi({
 export const BookingApi = createApi({
   reducerPath:'BookingApi',
   baseQuery: fetchBaseQuery({
-    baseUrl: 'http://localhost:8000'
+    baseUrl: 'https://vehicle-rental-backend-qp3a.onrender.com'
   }),
   tagTypes: ["getBooking"],
   endpoints:(builder) => ({
@@ -338,16 +358,17 @@ export const BookingApi = createApi({
 })
 
 export const VehicleSpecificationApi = createApi({
-  reducerPath: 'vehicleSpecificationApi',
-  baseQuery: fetchBaseQuery({ baseUrl: 'http://localhost:8000' }),
-  tagTypes: ['VehicleSpecification'],
+  reducerPath: "vehicleSpecificationApi",
+  baseQuery: fetchBaseQuery({ baseUrl: 'https://vehicle-rental-backend-qp3a.onrender.com' }),
+  tagTypes: ["VehicleSpecification"],
   endpoints: (builder) => ({
-    GetVehicleSpec: builder.query<TVehicleSpec[], void>({
-      query: () => 'vehicleSpec',
-      providesTags: ['VehicleSpecification'],
+
+    GetVehicleSpec: builder.query({
+      query: () => "vehicleSpec",
+      providesTags: ["VehicleSpecification"],
     }),
 
-    GetVehicleSpecificationsById: builder.query<TVehicleSpec, number>({
+    GetVehicleSpecificationsById: builder.query({
       query: (id) => `vehicleSpec/${id}`,
       providesTags: ['VehicleSpecification'],
     }),
@@ -360,28 +381,43 @@ export const VehicleSpecificationApi = createApi({
           }),
           invalidatesTags: ['VehicleSpecification'],
       }),
+
+      DeleteVehicleSpecification: builder.mutation<{sucess: boolean; spec: number}, number>(
+        {
+          query:(id)=>({
+            url: `VehicleSpec/${id}`,
+            method: "DELETE",
+            providesTags:["VehicleSpecification"]
+          }),
+          invalidatesTags: ["VehicleSpecification"]
+        }
+      )
   }),
+
+      
 })
 
 export const FleetManagmentApi = createApi({
   reducerPath:'FleetManagmentApi',
   baseQuery: fetchBaseQuery({
-    baseUrl: 'http://localhost:8000'
+    baseUrl: 'https://vehicle-rental-backend-qp3a.onrender.com'
   }),
   tagTypes: ["fleetManagmentService"],
   endpoints:(builder) => ({
-    GetFleetManagment: builder.query({
-      query: ()=>'fleetManagment',
-      providesTags: ['fleetManagmentService']
+
+   GetFleetManagement: builder.query<TFleet[], void>({
+      query: () => "fleetManagment",
+      providesTags: ["fleetManagmentService"],
     }),
 
-GetFleetManagmentById: builder.query({
+
+GetFleetManagmentById: builder.query<TFleet, number>({
     query: (id) => ({
       url:`fleetManagment/${id}`,
     providesTags: ["getUserProfileByIdTag"],
   }),
 }),
-CreateFleetManagment: builder.mutation({
+CreateFleetManagment: builder.mutation<TFleet, Partial<TFleet>>({
   query: (newUser) => ({
     url: "fleetManagment",
     method: "POST",
@@ -391,7 +427,7 @@ CreateFleetManagment: builder.mutation({
   invalidatesTags: ["fleetManagmentService"],
 }),
 
-UpdateFleetManagment: builder.mutation<TUser, Partial<TUser>>({
+UpdateFleetManagment: builder.mutation<TFleet, Partial<TFleet>>({
   query: ({ id, ...rest }) => ({
     url: `fleetManagment/${id}`,
     method: "PUT",
@@ -402,7 +438,7 @@ UpdateFleetManagment: builder.mutation<TUser, Partial<TUser>>({
 }),
 
 
-DeleteFleetManagment: builder.mutation<{ success: boolean; userId: number }, number>(
+DeleteFleetManagment: builder.mutation<{ success: boolean; fleetid: number }, number>(
   {
     query: (userId) => ({
       url: `fleetManagment/${userId}`,
@@ -417,7 +453,7 @@ DeleteFleetManagment: builder.mutation<{ success: boolean; userId: number }, num
 export const ReviewsApi = createApi({
   reducerPath:'ReviewsApi',
   baseQuery: fetchBaseQuery({
-    baseUrl: 'http://localhost:8000'
+    baseUrl: 'https://vehicle-rental-backend-qp3a.onrender.com'
   }),
   tagTypes: ["ReviewService"],
   endpoints:(builder) => ({
@@ -469,7 +505,7 @@ DeleteReviews: builder.mutation<{ success: boolean; userId: number }, number>(
 export const LocationApi = createApi({
   reducerPath:'LocationApi',
   baseQuery: fetchBaseQuery({
-    baseUrl: 'http://localhost:8000'
+    baseUrl: 'https://vehicle-rental-backend-qp3a.onrender.com'
   }),
   tagTypes: ["getLocations"],
   endpoints:(builder) => ({
@@ -525,5 +561,59 @@ export const LocationApi = createApi({
   }),
 })
 
+export const TicketsApi = createApi({
+  reducerPath: 'TicketsApi',
+  baseQuery: fetchBaseQuery({
+    baseUrl: 'https://vehicle-rental-backend-qp3a.onrender.com',
+    prepareHeaders: (headers, { getState }) => {
+      const token = (getState() as RootState).auth.token;
+      if (token) {
+        headers.set('authorization', `Bearer ${token}`);
+      }
+      return headers;
+    },
+  }),
+  tagTypes: ["getTickets"],
+  endpoints: (builder) => ({
+    // Get all tickets
+    GetTickets: builder.query<Tickets[], void>({
+      query: () => 'customerSupport',
+      providesTags: ['getTickets'],
+    }),
 
+    // Get ticket by ID
+    GetTicketsById: builder.query<Tickets, number>({
+      query: (id) => `customerSupport/${id}`,
+      providesTags: ["getTickets"],
+    }),
 
+    // Update ticket
+    UpdateTickets: builder.mutation<Tickets, Partial<Tickets>>({
+      query: ({ id, ...rest }) => ({
+        url: `customerSupport/${id}`,
+        method: "PUT",
+        body: rest,
+      }),
+      invalidatesTags: ['getTickets'],
+    }),
+
+    // Delete ticket
+    DeleteTickets: builder.mutation<number, number>({
+      query: (id) => ({
+        url: `customerSupport/${id}`,
+        method: 'DELETE',
+      }),
+      invalidatesTags: ['getTickets'],
+    }),
+
+    // Create ticket
+    CreateTickets: builder.mutation<Tickets, Partial<Tickets>>({
+      query: (newTicket) => ({
+        url: 'customerSupport',
+        method: 'POST',
+        body: newTicket,
+      }),
+      invalidatesTags: ['getTickets'],
+    }),
+  }),
+});

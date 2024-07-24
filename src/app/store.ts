@@ -1,7 +1,7 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
 import storage from 'redux-persist/lib/storage';
 import { persistStore, persistReducer } from 'redux-persist';
-import { AvailableVehicleApi, LocationApi, LoginApi, PaymentApi, RegisterApi, ReviewsApi, UserApi,VehicleApi, VehicleSpecificationApi } from '../features/users/UsersAPI';
+import { AvailableVehicleApi, BookingApi, FleetManagmentApi, LocationApi, LoginApi, PaymentApi, RegisterApi, ReviewsApi, TicketsApi, UserApi,VehicleApi, VehicleSpecificationApi } from '../features/users/UsersAPI';
 import authReducer from '../components/authProtected/auth';
 
 // CREATE PERSIST CONFIG
@@ -21,7 +21,10 @@ const rootReducer = combineReducers({
     [AvailableVehicleApi.reducerPath]: AvailableVehicleApi.reducer,
     [VehicleSpecificationApi.reducerPath]: VehicleSpecificationApi.reducer,
     [ReviewsApi.reducerPath]:ReviewsApi.reducer,
-    [LocationApi.reducerPath]: LocationApi.reducer
+    [BookingApi.reducerPath]:BookingApi.reducer,
+    [LocationApi.reducerPath]: LocationApi.reducer,
+    [TicketsApi.reducerPath]:TicketsApi.reducer,
+    [FleetManagmentApi.reducerPath]:FleetManagmentApi.reducer
 });
 
 // Create a persisted reducer
@@ -43,6 +46,9 @@ export const store = configureStore({
             .concat(VehicleSpecificationApi.middleware)
             .concat(ReviewsApi.middleware)
             .concat(LocationApi.middleware)
+            .concat(BookingApi.middleware)
+            .concat(TicketsApi.middleware)
+            .concat(FleetManagmentApi.middleware)
 });
 
 // Create a persistent store

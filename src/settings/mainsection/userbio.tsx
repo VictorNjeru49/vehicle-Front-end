@@ -80,7 +80,6 @@ const Userbio = () => {
         </div>
         <button
           onClick={() => {
-            setEditingUser(user);
             setShowForm(true);
           }}
           className="btn btn-primary mt-4"

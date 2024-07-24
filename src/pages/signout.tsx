@@ -1,23 +1,29 @@
+import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '../app/store';
 import { logout } from '../components/authProtected/auth';
-
 
 const SignOutForm = () => {
     const isLoggedIn = useSelector((state: RootState) => state.auth.isAuthenticated);
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
+    useEffect(() => {
+        if (!isLoggedIn) {
+            navigate('/'); // Redirect to home if the user is not logged in
+        }
+    }, [isLoggedIn, navigate]);
+
     const handleLogOut = () => {
-        // Dispatch the clearAuth action to reset the state
+        // Dispatch the logout action to reset the state
         dispatch(logout());
         navigate('/login'); // Redirect to login page after logout
     };
 
+    // If the user is not logged in, we don't want to render the sign-out form
     if (!isLoggedIn) {
-        navigate('/'); // Redirect to login page if the user is not logged in
-        return null;
+        return null; // Already handled by useEffect
     }
 
     return (

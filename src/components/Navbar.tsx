@@ -63,7 +63,7 @@ function Navbar() {
                         className="menu menu-sm dropdown-content text-black bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow">
                         <li><Link to="/userprofile">Profile</Link></li>
                         <li><Link to="/account">Account</Link></li>
-                        <li><Link to="/dashboard-profile">Dashboard</Link></li>
+                        <li><Link to="/Dashboard-Profile">Dashboard</Link></li>
                         <li><Link to="/logout">Logout</Link></li>
                     </ul>
                 </div>
@@ -94,7 +94,7 @@ function Navbar() {
                         <li><Link to="/login"><LogIn className="h-5 w-5" /></Link></li>
                         <li><Link to="/register"><UserPlus className="h-5 w-5" /></Link></li>
                         <li><Link to="/account">Account</Link></li>
-                        <li><Link to="/dashboard-profile">Dashboard</Link></li>
+                        <li><Link to="/Dashboard-Profile">Dashboard</Link></li>
                         <li><Link to="/logout">Logout</Link></li>
                     </ul>
                 </div>

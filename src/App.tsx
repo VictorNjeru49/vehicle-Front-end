@@ -13,7 +13,6 @@ import VehicleTable from './features/vehicles/vehicleTable'
 import VehicleList from './components/blog'
 import ProfileSectioning from './settings/mainsection/bio'
 import ProfileUser from './settings/mainsection/profile'
-import FormBook from './features/vehicles/form'
 import Accounts from './settings/Accounts'
 import Password from './settings/Password'
 import Notifications from './settings/Notifications'
@@ -29,6 +28,9 @@ import Review from './pages/Review'
 import VehicleSlice from './features/Vehiclespec/vehicleSlice'
 import VehicleDetails from './features/Vehiclespec/VehicleDetails'
 import ProtectedRoute from './components/authProtected/Protectedroute'
+import DisplayTickets from './features/Tickets/AdminTickets'
+import FleetManagement from './features/fleetmanagement/fleetSlice'
+import TermsService from './features/termsSerives/TermsService'
 
 
 
@@ -90,16 +92,10 @@ function App() {
       path: '/vehicle/:id',
       element: <VehicleDetails />,
       errorElement:<Error/>,  // custom error page for 404 not found
-    },
-    {
-      path: 'bookform',
-      element:<ProtectedRoute><FormBook/></ProtectedRoute>,
-      errorElement:<Error/>,  // custom error page for 404 not found
-       // custom error title for 404 not found
-    },              
+    },             
     {
       path: 'dashboard',
-      element:<ProtectedRoute><Dashboard/></ProtectedRoute>,
+      element:<Dashboard/>,
       errorElement:<Error/>,  // custom error page
 
       children:[
@@ -118,12 +114,24 @@ function App() {
         {
           path: 'vehiclestatus',
           element:<ShowTableVehicle/>,
+        },
+        {
+          path: 'termsService',
+          element:<TermsService/>,
+        },
+        {
+          path: 'Tickets',
+          element:<DisplayTickets/>
+        },
+        {
+          path: 'Fleets',
+          element:<FleetManagement/>,
         }
       ]
     },
   {
     path: 'Dashboard-Profile',
-    element:<ProtectedRoute><SettingsPage/></ProtectedRoute>,
+    element:<SettingsPage id={0} fullname={''} link={''} email={''} role={''} password={''} contact_phone={''} address={''}/>,
     errorElement:<Error/>,  // custom error page for 404 not found
       
     children:[

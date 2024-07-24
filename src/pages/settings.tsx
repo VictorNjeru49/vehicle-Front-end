@@ -3,6 +3,7 @@ import Profile from '../settings/profile';
 import { Link } from 'react-router-dom';
 import { TUser } from '../types/alltypes';
 
+
 const SettingsPage = ((user:TUser) => {
   const [open, setOpen] = useState(false);
   return (
@@ -29,9 +30,7 @@ const SettingsPage = ((user:TUser) => {
               <div className="hidden lg:ml-6 lg:block lg:space-x-4">
                 <div className="flex">
                   <a href="#" className="bg-black bg-opacity-25 rounded-md py-2 px-3 text-sm font-medium text-white hover:bg-sky-800">Dashboard</a>
-                  <Link to="/vehicle/:id"><a href="#" className="hover:bg-sky-800 rounded-md py-2 px-3 text-sm font-medium text-white">Vehicle</a></Link>
-                  <a href="#" className="hover:bg-sky-800 rounded-md py-2 px-3 text-sm font-medium text-white">Applicants</a>
-                  <a href="#" className="hover:bg-sky-800 rounded-md py-2 px-3 text-sm font-medium text-white">Company</a>
+                  <Link to="/vehicles"><a href="#" className="hover:bg-sky-800 rounded-md py-2 px-3 text-sm font-medium text-white">Vehicle</a></Link>
                 </div>
               </div>
             </div>
@@ -90,9 +89,8 @@ const SettingsPage = ((user:TUser) => {
         <div className={`${open ? 'block' : 'hidden'} bg-sky-900 lg:hidden`} id="mobile-menu">
           <div className="space-y-1 px-2 pt-2 pb-3">
             <a href="#" className="bg-black bg-opacity-25 block rounded-md py-2 px-3 text-base font-medium text-white">Dashboard</a>
-            <Link to="/blogs"><a href="#" className="hover:bg-sky-800 rounded-md py-2 px-3 text-sm font-medium text-white">Vehicle</a></Link>
-            <a href="#" className="hover:bg-sky-800 block rounded-md py-2 px-3 text-base font-medium text-white">Applicants</a>
-            <a href="#" className="hover:bg-sky-800 block rounded-md py-2 px-3 text-base font-medium text-white">Company</a>
+            <Link to="/vehicles"><a href="#" className="hover:bg-sky-800 rounded-md py-2 px-3 text-sm font-medium text-white">Vehicle</a></Link>
+            
           </div>
           <div className="border-t border-sky-800 pt-4 pb-3">
             <div className="flex items-center px-5">

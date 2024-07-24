@@ -33,12 +33,12 @@ function Form() {
     
   const onSubmit = async (data: FormValues) => {
         console.log(data);
-        if (data.password !== data.confirmPassword) {
+        if (password !== data.confirmPassword) {
             toast.error("Passwords do not match");
             return;
         }
 
-        const { confirmPassword, ...userData } = data;
+        const { ...userData } = data;
 
         try {
            const res = await registerUser(userData).unwrap();
