@@ -168,7 +168,10 @@ export interface RegisterVehicleFormValues {
     user:TUser[];
     vehicle: TVehicle[]
     bookingId: BookingState[]
+    createdbook?: {id: number};
+    
 }
+
 export interface TBookstate{
     id: number;
     bookingDate: string; 
