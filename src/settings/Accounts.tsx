@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom";
+// import { useParams } from "react-router-dom";
 import { toast } from "sonner";
 import { useEffect, useState } from "react";
 import { RootState } from "../app/store";
@@ -6,9 +6,9 @@ import { useSelector } from "react-redux";
 import { PaymentApi } from "../features/users/UsersAPI";
 
 function Accounts() {
-  const { id } = useParams<{ id: string }>();
+  // const { id } = useParams<{ id: string }>();
   const userId = useSelector((state: RootState) => state.auth.user?.id);
-  const { data: payment, error, isLoading, refetch } = PaymentApi.useGetPaymentByIdQuery(Number(id), {
+  const { data: payment, error, isLoading, refetch } = PaymentApi.useGetPaymentByIdQuery(Number(userId), {
     skip: !userId,
   });
   const [updatePayment, { isLoading: isUpdating }] = PaymentApi.useUpdatePaymentMutation();

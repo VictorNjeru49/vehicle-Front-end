@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom";
+// import { useParams } from "react-router-dom";
 import { toast } from "sonner";
 import { useEffect, useState } from "react";
 import { RootState } from "../app/store";
@@ -6,11 +6,9 @@ import { useSelector } from "react-redux";
 import { BookingApi } from "../features/users/UsersAPI";
 
 function Billing() {
-  const { id } = useParams<{ id: string }>();
+  // const { id } = useParams<{ id: string }>();
   const userId = useSelector((state: RootState) => state.auth.user?.id);
-  const { data: booking, error, isLoading, refetch } = BookingApi.useGetBookingByIdQuery(Number(id), {
-    skip: !userId,
-  });
+  const { data: booking, error, isLoading, refetch } = BookingApi.useGetBookingByIdQuery(Number(userId));
   const [updateBooking, { isLoading: isUpdating }] = BookingApi.useUpdateBookingMutation();
   const [bookingStatus, setBookingStatus] = useState<string | null>(null);
 
