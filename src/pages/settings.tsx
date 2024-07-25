@@ -1,10 +1,10 @@
 import { useState } from 'react';
 import Profile from '../settings/profile';
 import { Link } from 'react-router-dom';
+import { TUser } from '../types/alltypes';
 
 
-
-const SettingsPage = ()=> {
+const SettingsPage = ((user:TUser) => {
   const [open, setOpen] = useState(false);
   return (
     <>
@@ -71,7 +71,7 @@ const SettingsPage = ()=> {
                   <div>
                     <button type="button" className="flex rounded-full text-sm text-white focus:bg-sky-900 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-sky-900" id="user-menu-button" aria-expanded="false" aria-haspopup="true" onClick={() => setOpen(!open)}>
                       <span className="sr-only">Open user menu</span>
-                      <img className="h-8 w-8 rounded-full object-fill" src="https://th.bing.com/th/id/OIP.dsiC7a1xQd-CPZpBuMeCDgHaE8?rs=1&pid=ImgDetMain" />
+                      <img className="h-8 w-8 rounded-full object-fill" src={user.link} />
                     </button>
                   </div>
 
@@ -128,6 +128,6 @@ const SettingsPage = ()=> {
     </>
 
   );
-};
+});
 
 export default SettingsPage;
