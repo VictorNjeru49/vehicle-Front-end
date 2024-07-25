@@ -12,7 +12,6 @@ const VehicleDetails = () => {
 
   const { data: user } = UserApi.useGetUserProfileByIdQuery(Number(userId));
   const { data: vehicle, isLoading: isLoadingVehicle } = VehicleApi.useGetVehicleByIdQuery(Number(id));
-  // const { data: vehicleDatas } = BookingApi.useGetBookingByIdQuery(Number(id));
   const { data: locations } = LocationApi.useGetLocationsQuery();
   const [bookVehicle] = BookingApi.useCreateBookingMutation();
   const [createCheckoutSession] = PaymentApi.useCreatePaymentMutation();
