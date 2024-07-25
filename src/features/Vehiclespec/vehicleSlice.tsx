@@ -115,7 +115,7 @@ const VehicleList = () => {
                 className="w-full h-48 object-cover rounded-md mb-4" 
               />
               <h1><b>Rental Rate:</b> ${vehicle.rental_rate}</h1>
-              <h2 className="text-xl font-bold"><b>Company:</b> {specs.manufacturer} </h2>
+             
               <h3><b>Model:</b> {specs.model}</h3>
               <h3 className="text-gray-500"><b>Availability:</b> {Availability(vehicle.availability)}</h3>
               <h4 className="text-lg"><b>Color:</b> {specs.color}</h4>
