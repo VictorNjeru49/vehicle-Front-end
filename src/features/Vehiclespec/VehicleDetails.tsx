@@ -12,7 +12,7 @@ const VehicleDetails = () => {
 
   const { data: user } = UserApi.useGetUserProfileByIdQuery(Number(userId));
   const { data: vehicle, isLoading: isLoadingVehicle } = VehicleApi.useGetVehicleByIdQuery(Number(id));
-  const { data: vehicleDatas } = BookingApi.useGetBookingByIdQuery(Number(id));
+  // const { data: vehicleDatas } = BookingApi.useGetBookingByIdQuery(Number(id));
   const { data: locations } = LocationApi.useGetLocationsQuery();
   const [bookVehicle] = BookingApi.useCreateBookingMutation();
   const [createCheckoutSession] = PaymentApi.useCreatePaymentMutation();
@@ -47,19 +47,18 @@ const VehicleDetails = () => {
       toast.error('The vehicle is already booked for the selected dates.');
       return;
     }
-
+  
     if (selectedLocationId === undefined) {
       toast.error('Please select a location.');
       return;
     }
-
+  
     if (!user || !userId) {
       toast.warning('User not logged in. Please log in to book a vehicle.');
       return;
     }
-
+  
     const bookingPayload = {
-      id: Number(vehicleDatas?.id),
       userId: userId,
       vehicleId: Number(id),
       locationId: selectedLocationId,
@@ -68,19 +67,17 @@ const VehicleDetails = () => {
       totalAmount: totalAmount,
       bookingStatus: 'pending',
     };
-    console.log(bookingPayload)
-
-    
+  
     try {
-      await bookVehicle(bookingPayload).unwrap();
-      const newBookingId = bookingPayload.id;
-      
-      if (newBookingId === undefined) {
+      const bookingResponse = await bookVehicle(bookingPayload).unwrap();
+      const newBookingId = bookingResponse.id; // Assuming the response contains the new booking ID
+  
+      if (!newBookingId) {
         throw new Error('Booking ID not returned');
       }
-
+  
       localStorage.setItem('bookingId', newBookingId.toString());
-
+  
       const paymentPayload = {
         bookingId: newBookingId,
         Amount: totalAmount * 100, // Convert to cents for payment processing
@@ -89,12 +86,12 @@ const VehicleDetails = () => {
         paymentMethod: 'card',
         transactionId: ''
       };
-
+  
       const checkoutResponse = await createCheckoutSession(paymentPayload).unwrap();
       paymentPayload.checkoutUrl = checkoutResponse.checkoutUrl;
-
+  
       window.location.href = checkoutResponse.checkoutUrl;
-
+  
     } catch (error) {
       console.error('Error creating checkout session:', error);
       setError(`Failed to create checkout session: ${error || 'Please try again later.'}`);
