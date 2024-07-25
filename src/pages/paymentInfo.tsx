@@ -1,7 +1,9 @@
+import SomePage from "../back/back"
 
 function PaymentInfo() {
   return (
     <div>
+      <SomePage/>
         <h2>
             Thank you for your Patience
         </h2>

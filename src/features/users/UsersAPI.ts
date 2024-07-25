@@ -5,7 +5,7 @@ import { RootState } from "../../app/store";
 export const UserApi = createApi({
   reducerPath: "UserApi",
   baseQuery: fetchBaseQuery({
-    baseUrl: "https://vehicle-rental-backend-qp3a.onrender.com",
+    baseUrl: "https://versalvehicle.azurewebsites.net/",
     prepareHeaders: (headers)=>{
       const token = localStorage.getItem('authToken');
       if(token){
@@ -82,7 +82,7 @@ export const UserApi = createApi({
 
 export const LoginApi = createApi({
   reducerPath: 'loginApi',
-  baseQuery: fetchBaseQuery({ baseUrl: 'https://vehicle-rental-backend-qp3a.onrender.com' }),
+  baseQuery: fetchBaseQuery({ baseUrl: 'https://versalvehicle.azurewebsites.net/' }),
   endpoints: (builder) => ({
       loginUser: builder.mutation<LoginRequest, { email: string; password: string }>({
           query: (credentials) => ({
@@ -96,7 +96,7 @@ export const LoginApi = createApi({
 
 export const RegisterApi = createApi({
     reducerPath: 'RegisterApi',
-    baseQuery: fetchBaseQuery({ baseUrl: 'https://vehicle-rental-backend-qp3a.onrender.com' }),
+    baseQuery: fetchBaseQuery({ baseUrl: 'https://versalvehicle.azurewebsites.net/' }),
     endpoints: (builder) => ({
         registerUser: builder.mutation<RegisterRequest, { email: string; password: string; }>({
             query: (credentials) => ({
@@ -118,7 +118,7 @@ export const RegisterApi = createApi({
 export const VehicleApi = createApi({
   reducerPath: 'VehicleApi',
   baseQuery: fetchBaseQuery({
-    baseUrl: "https://vehicle-rental-backend-qp3a.onrender.com"
+    baseUrl: "https://versalvehicle.azurewebsites.net/"
   }),
   tagTypes: ["getVehicle"],
 
@@ -192,7 +192,7 @@ export const VehicleApi = createApi({
 export const PaymentApi = createApi({
   reducerPath:'PaymentApi',
   baseQuery: fetchBaseQuery({
-    baseUrl: 'https://vehicle-rental-backend-qp3a.onrender.com'
+    baseUrl: 'https://versalvehicle.azurewebsites.net/'
   }),
   tagTypes: ["getPayments"],
   endpoints:(builder) => ({
@@ -251,7 +251,7 @@ export const PaymentApi = createApi({
 export const AvailableVehicleApi = createApi({
   reducerPath: "AvailableVehicleApi",
   baseQuery: fetchBaseQuery({
-    baseUrl: "https://vehicle-rental-backend-qp3a.onrender.com",
+    baseUrl: "https://versalvehicle.azurewebsites.net/",
   }),
   tagTypes: ["available Vehicle"],
 
@@ -301,7 +301,7 @@ export const AvailableVehicleApi = createApi({
 export const BookingApi = createApi({
   reducerPath:'BookingApi',
   baseQuery: fetchBaseQuery({
-    baseUrl: 'https://vehicle-rental-backend-qp3a.onrender.com'
+    baseUrl: 'https://versalvehicle.azurewebsites.net/'
   }),
   tagTypes: ["getBooking"],
   endpoints:(builder) => ({
@@ -359,7 +359,7 @@ export const BookingApi = createApi({
 
 export const VehicleSpecificationApi = createApi({
   reducerPath: "vehicleSpecificationApi",
-  baseQuery: fetchBaseQuery({ baseUrl: 'https://vehicle-rental-backend-qp3a.onrender.com' }),
+  baseQuery: fetchBaseQuery({ baseUrl: 'https://versalvehicle.azurewebsites.net/' }),
   tagTypes: ["VehicleSpecification"],
   endpoints: (builder) => ({
 
@@ -391,16 +391,25 @@ export const VehicleSpecificationApi = createApi({
           }),
           invalidatesTags: ["VehicleSpecification"]
         }
-      )
+      ),
+      CreateVehicleSpecification:builder.mutation<TVehicleSpec, Partial<TVehicleSpec>>({
+        query: (newUser) => ({
+          url: "fleetManagment",
+          method: "POST",
+          body: newUser,
+          providesTags: ["createVehicle"],
+        }),
+        invalidatesTags: ["VehicleSpecification"],
+      })
   }),
-
+  
       
 })
 
 export const FleetManagmentApi = createApi({
   reducerPath:'FleetManagmentApi',
   baseQuery: fetchBaseQuery({
-    baseUrl: 'https://vehicle-rental-backend-qp3a.onrender.com'
+    baseUrl: 'https://versalvehicle.azurewebsites.net/'
   }),
   tagTypes: ["fleetManagmentService"],
   endpoints:(builder) => ({
@@ -453,7 +462,7 @@ DeleteFleetManagment: builder.mutation<{ success: boolean; fleetid: number }, nu
 export const ReviewsApi = createApi({
   reducerPath:'ReviewsApi',
   baseQuery: fetchBaseQuery({
-    baseUrl: 'https://vehicle-rental-backend-qp3a.onrender.com'
+    baseUrl: 'https://versalvehicle.azurewebsites.net/'
   }),
   tagTypes: ["ReviewService"],
   endpoints:(builder) => ({
@@ -505,7 +514,7 @@ DeleteReviews: builder.mutation<{ success: boolean; userId: number }, number>(
 export const LocationApi = createApi({
   reducerPath:'LocationApi',
   baseQuery: fetchBaseQuery({
-    baseUrl: 'https://vehicle-rental-backend-qp3a.onrender.com'
+    baseUrl: 'https://versalvehicle.azurewebsites.net/'
   }),
   tagTypes: ["getLocations"],
   endpoints:(builder) => ({
@@ -564,7 +573,7 @@ export const LocationApi = createApi({
 export const TicketsApi = createApi({
   reducerPath: 'TicketsApi',
   baseQuery: fetchBaseQuery({
-    baseUrl: 'https://vehicle-rental-backend-qp3a.onrender.com',
+    baseUrl: 'https://versalvehicle.azurewebsites.net/',
     prepareHeaders: (headers, { getState }) => {
       const token = (getState() as RootState).auth.token;
       if (token) {

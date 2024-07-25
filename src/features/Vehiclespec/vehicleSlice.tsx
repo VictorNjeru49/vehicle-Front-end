@@ -13,7 +13,7 @@ const VehicleList = () => {
   const [maxRate, setMaxRate] = useState('');
 
   if (error) {
-    toast.error('No data available');
+    toast.error('Error: No data available');
     return <div>Error: No data available</div>;
   }
 
@@ -21,7 +21,7 @@ const VehicleList = () => {
     return (
       <div className="flex flex-col items-center justify-center h-screen">
         <span className="loading loading-bars loading-lg"></span>
-        <p className="mt-4 text-gray-500 dark:text-gray-400">Loading...</p>
+        <p className="mt-4 text-gray-500 dark:text-gray-400">Loading vehicles...</p>
       </div>
     );
   }
@@ -38,7 +38,7 @@ const VehicleList = () => {
       specs.model.toLowerCase().includes(searchTerm.toLowerCase());
 
     const matchesAvailability = availabilityFilter
-      ? (vehicle.availability) === availabilityFilter
+      ? (vehicle.availability ? 'Available' : 'Unavailable') === availabilityFilter
       : true;
 
     const rentalRate = vehicle.rental_rate;
@@ -48,6 +48,23 @@ const VehicleList = () => {
 
     return matchesSearchTerm && matchesAvailability && matchesRate;
   });
+
+  // Validate rates
+  const handleMinRateChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+    setMinRate(value);
+    if (maxRate && Number(value) > Number(maxRate)) {
+      toast.error('Minimum rate cannot be greater than maximum rate.');
+    }
+  };
+
+  const handleMaxRateChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+    setMaxRate(value);
+    if (minRate && Number(value) < Number(minRate)) {
+      toast.error('Maximum rate cannot be less than minimum rate.');
+    }
+  };
 
   return (
     <div className="container mx-auto p-4">
@@ -73,14 +90,14 @@ const VehicleList = () => {
             type="number"
             placeholder="Min Rental Rate"
             value={minRate}
-            onChange={(e) => setMinRate(e.target.value)}
+            onChange={handleMinRateChange}
             className="input input-bordered w-full"
           />
           <input
             type="number"
             placeholder="Max Rental Rate"
             value={maxRate}
-            onChange={(e) => setMaxRate(e.target.value)}
+            onChange={handleMaxRateChange}
             className="input input-bordered w-full"
           />
         </div>

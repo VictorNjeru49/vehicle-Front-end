@@ -29,7 +29,7 @@ export interface TVehicles{
     id: number;
     image: string;
     rental_rate: number;
-    availability: string;
+    availability: boolean;
     specifications: TVehicleSpec[],
 }
 export interface TVehicle{
@@ -37,8 +37,9 @@ export interface TVehicle{
     image: string;
     userId:number;
     rental_rate: number;
-    availability: string;
-    specifications: TVehicleSpec[]
+    availability: boolean;
+    specifications: TVehicleSpec[];
+    user:TUser
 }
 
 export interface TVehicleSpec {
@@ -106,7 +107,7 @@ export interface TLocations{
     id: number;
     locationName: string;
     address: string,
-    contactNumber:string;
+    contactNumber:number;
 }
 export interface PaymentForm{
     id: number;
@@ -153,7 +154,7 @@ export interface RegisterVehicleFormValues {
     link: string;
   };
 
-  export type BookingState = {
+  export interface BookingState  {
     id: number;
     bookingDate: string; 
     returnDate: string; 
@@ -163,9 +164,21 @@ export interface RegisterVehicleFormValues {
     vehicleId: number;
     userId: number;
     location: TLocations[];
+    payment: PaymentForm[]
     user:TUser[];
     vehicle: TVehicle[]
-  }
+    bookingId: BookingState[]
+}
+export interface TBookstate{
+    id: number;
+    bookingDate: string; 
+    returnDate: string; 
+    bookingStatus: string;
+    totalAmount: number;
+    locationId: number;
+    vehicleId: number;
+    userId: number;
+}
 
 export interface UserState {
     token: string | null;

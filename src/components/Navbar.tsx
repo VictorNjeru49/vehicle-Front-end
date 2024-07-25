@@ -1,16 +1,12 @@
-import { AlignJustify, Bell, LogIn, UserPlus, Search, Moon, Sun, X, CircleUserIcon } from "lucide-react";
-import { useState } from "react";
+import { AlignJustify, Bell, LogIn, UserPlus, Search, X, CircleUserIcon } from "lucide-react";
+
 import { Link } from "react-router-dom";
 
 function Navbar() {
-    const [isDarkMode, setIsDarkMode] = useState(false);
 
-    const toggleDarkMode = () => {
-        setIsDarkMode(!isDarkMode);
-    };
     return (
         <>
-            <div className={`navbar w-full border-b-4 ${isDarkMode ? "bg-slate-900 text-white" : "bg-slate-500"}`}>
+            <div className={`navbar w-full border-b-4 `}>
                 <div className="navbar w-full border-b-4 bg-slate-500">
                     <div className="navbar-start">
                         <div className="dropdown">
@@ -46,14 +42,6 @@ function Navbar() {
                                 <Bell className="h-5 w-5" />
                                 <span className="badge badge-xs badge-primary indicator-item"></span>
                             </div>
-                        </button>
-
-                        <button className="btn btn-ghost btn-circle" onClick={toggleDarkMode}>
-                            {isDarkMode ? (
-                                <Moon className="h-5 w-5" />
-                            ) : (
-                                <Sun className="h-5 w-5" />
-                            )}
                         </button>
 </div>
 

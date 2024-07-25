@@ -31,6 +31,9 @@ import ProtectedRoute from './components/authProtected/Protectedroute'
 import DisplayTickets from './features/Tickets/AdminTickets'
 import FleetManagement from './features/fleetmanagement/fleetSlice'
 import TermsService from './features/termsSerives/TermsService'
+import ManageLocations from './features/locations/location'
+import PaymentInfo from './pages/paymentInfo'
+import PaymentFailed from './pages/PaymentFailed'
 
 
 
@@ -48,6 +51,16 @@ function App() {
       path:'signOut',
       element:<SignOutForm/> ,
       errorElement:<Error/>
+    },
+    {
+      path:'PaymentSucessful',
+      element:<PaymentInfo/>,
+      errorElement:<Error/>
+    },
+    {
+      path: 'PaymentFailed',
+      element:<PaymentFailed />,
+      errorElement:<Error/>  // custom error page for 404 not found
     },
     {
       path: 'register',
@@ -92,7 +105,12 @@ function App() {
       path: '/vehicle/:id',
       element: <VehicleDetails />,
       errorElement:<Error/>,  // custom error page for 404 not found
-    },             
+    },
+    {
+      path: 'service',
+      element:<TermsService/>,
+      errorElement:<Error/>,  // custom error page for 404 not found
+    },            
     {
       path: 'dashboard',
       element:<Dashboard/>,
@@ -106,6 +124,10 @@ function App() {
         {
           path: 'vehicle',
           element:<VehicleTable/>
+        },
+        {
+          path: 'location',
+          element:<ManageLocations/>
         },
         {
           path: 'payment',
