@@ -35,7 +35,7 @@ const VehicleList = () => {
     const specs = vehicle.specifications[0];
     const matchesSearchTerm =
       specs?.manufacturer.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      specs.model.toLowerCase().includes(searchTerm.toLowerCase());
+      specs?.model.toLowerCase().includes(searchTerm.toLowerCase());
 
     const matchesAvailability = availabilityFilter
       ? (vehicle.availability ? 'Available' : 'Unavailable') === availabilityFilter
