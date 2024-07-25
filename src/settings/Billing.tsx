@@ -42,7 +42,9 @@ function Billing() {
   if (isLoading) return <div>Loading...</div>;
   if (error) return (
     <div>
-      <p>Error fetching booking details: {error.toString()}</p>
+      <p>Error fetching booking details: 
+        no data
+      </p>
     </div>
   );
 

@@ -42,7 +42,9 @@ function Accounts() {
   if (isLoading) return <div>Loading...</div>;
   if (error) return (
     <div>
-      <p>Error fetching payment details: {error.toString()}</p>
+      <p>Error fetching payment details: 
+        NO data
+      </p>
     </div>
   );
 
