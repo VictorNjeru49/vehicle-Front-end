@@ -69,11 +69,12 @@ const VehicleDetails = () => {
       bookingStatus: 'pending',
     };
 
-    console.log(bookingPayload)
+    
     try {
       await bookVehicle(bookingPayload).unwrap();
-      const newBookingId = 1;
-
+      const newBookingId = bookingPayload.id;
+      
+      console.log(bookingPayload.id)
       if (newBookingId === undefined) {
         throw new Error('Booking ID not returned');
       }
