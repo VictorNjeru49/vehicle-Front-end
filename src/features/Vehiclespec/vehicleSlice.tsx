@@ -111,14 +111,14 @@ const VehicleList = () => {
             <div key={vehicle.id} className="border rounded-lg shadow-lg bg-white p-4">
               <img 
                 src={vehicle.image} 
-                alt={specs.model} 
+                alt={specs?.model} 
                 className="w-full h-48 object-cover rounded-md mb-4" 
               />
               <h1><b>Rental Rate:</b> ${vehicle.rental_rate}</h1>
-             
-              <h3><b>Model:</b> {specs.model}</h3>
+              <h2 className="text-xl font-bold"><b>Company:</b> {specs?.manufacturer} </h2>
+              <h3><b>Model:</b> {specs?.model}</h3>
               <h3 className="text-gray-500"><b>Availability:</b> {Availability(vehicle.availability)}</h3>
-              <h4 className="text-lg"><b>Color:</b> {specs.color}</h4>
+              <h4 className="text-lg"><b>Color:</b> {specs?.color}</h4>
               <Link to={`/vehicle/${vehicle.id}`} className="btn btn-primary mt-4">Book Now</Link>
             </div>
           );
