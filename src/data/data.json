@@ -180,18 +180,6 @@
       "link": "https://pictures.dealer.com/p/pacificvolkswagenvw/1358/e645c2f6dfc42c385e344ad63cad5dbbx.jpg?impolicy=downsize_bkpt&imdensity=1&w=520"
     },
     {
-      "id": 16,
-      "make": "Mazda",
-      "model": "CX-5",
-      "year": 2021,
-      "price": 28000,
-      "mileage": 16000,
-      "color": "White",
-      "transmission": "Automatic",
-      "engine": "2.5L 4-cylinder",
-      "link": "https://static.cargurus.com/images/forsale/2024/04/25/15/43/2021_mazda_cx-5-pic-4094571915460336198-1024x768.jpeg"
-    },
-    {
       "id": 17,
       "make": "Dodge",
       "model": "Ram 1500",
@@ -274,18 +262,6 @@
         "transmission": "Automatic",
         "engine": "2.0L Turbo 4-cylinder",
         "link": "https://www.herzogmeier.com/inventoryphotos/6542/yv4062pn4p1927225/ip/1.jpg?timestamp=2024-06-30T16:07:18Z&height=400&bg-color=FFFFFF"
-      },
-      {
-        "id": 24,
-        "make": "Genesis",
-        "model": "G80",
-        "year": 2021,
-        "price": 40000,
-        "mileage": 15000,
-        "color": "Black",
-        "transmission": "Automatic",
-        "engine": "3.5L V6",
-        "link": "https://edgecast-img.yahoo.net/mysterio/api/93AE7BA651BE36387661A340B7A33B80975D465D9E0D5FBB55EDCAA195BF5A32/autoblog/resizefill_w330_h248;quality_80;format_webp;cc_31536000;/https://img.vast.com/320x240/-2292757830548363383"
       },
       {
         "id": 25,

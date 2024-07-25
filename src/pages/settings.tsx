@@ -1,10 +1,10 @@
 import { useState } from 'react';
 import Profile from '../settings/profile';
 import { Link } from 'react-router-dom';
-import { TUser } from '../types/alltypes';
 
 
-const SettingsPage = ((user:TUser) => {
+
+const SettingsPage = ()=> {
   const [open, setOpen] = useState(false);
   return (
     <>
@@ -24,7 +24,7 @@ const SettingsPage = ((user:TUser) => {
             <div className="flex items-center px-2 lg:px-0">
               <div className="flex-shrink-0">
                 <Link to="/">
-                <img className="block h-8 w-auto" src="" alt="House in Umbria" />
+                <img className="block h-8 w-auto" src="https://th.bing.com/th/id/OIP.HHVUf3TYqncgpJXyCMmxyAHaHa?rs=1&pid=ImgDetMain" alt="House in Umbria" />
                 </Link>
               </div>
               <div className="hidden lg:ml-6 lg:block lg:space-x-4">
@@ -71,7 +71,7 @@ const SettingsPage = ((user:TUser) => {
                   <div>
                     <button type="button" className="flex rounded-full text-sm text-white focus:bg-sky-900 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-sky-900" id="user-menu-button" aria-expanded="false" aria-haspopup="true" onClick={() => setOpen(!open)}>
                       <span className="sr-only">Open user menu</span>
-                      <img className="h-8 w-8 rounded-full object-fill" src={user.link} />
+                      <img className="h-8 w-8 rounded-full object-fill" src="https://th.bing.com/th/id/OIP.dsiC7a1xQd-CPZpBuMeCDgHaE8?rs=1&pid=ImgDetMain" />
                     </button>
                   </div>
 
@@ -95,7 +95,7 @@ const SettingsPage = ((user:TUser) => {
           <div className="border-t border-sky-800 pt-4 pb-3">
             <div className="flex items-center px-5">
               <div className="flex-shrink-0">
-                <img className="h-10 w-10 rounded-full" src="https://images.unsplash.com/photo-1517365830460-955ce3ccd263?ixlib=rb-1.2.1&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=facearea&amp;facepad=4&amp;w=320&amp;h=320&amp;q=80" alt="" />
+                <img className="h-10 w-10 rounded-full" src="https://th.bing.com/th/id/OIP.dsiC7a1xQd-CPZpBuMeCDgHaE8?rs=1&pid=ImgDetMain" alt="" />
               </div>
               <div className="ml-3">
                 <div className="text-base font-medium text-white">Tom Cook</div>
@@ -128,6 +128,6 @@ const SettingsPage = ((user:TUser) => {
     </>
 
   );
-});
+};
 
 export default SettingsPage;
